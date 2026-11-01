@@ -41,6 +41,7 @@ function triggerVSliceEvent(name, values, strumTime):Void
             triggerEventNote("Zoom Camera", '${values.mode},A', '${values.zoom ?? 1},${values.duration ?? 4},$easeType');
         case "SetCameraBop":
             triggerEventNote("Set Camera Bop", '${values.rate}', '${values.intensity}');
+            beatOffset =  values.offset;
         case "PlayAnimation":
             switch (values.target)
             {
