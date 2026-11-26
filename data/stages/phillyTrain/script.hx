@@ -208,7 +208,12 @@ function onEvent(eventName, value1, value2)
 				if(phillyGlowGradient.visible)
 				{
 					doFlash();
-					if(ClientPrefs.camZooms) uiBop(0.5, 0.1);
+
+					if(ClientPrefs.camZooms)
+					{
+						defaultCamZoomBop += 0.5;
+						defaultHudZoomBop += 0.1;
+					}
 
 					blammedLightsBlack.visible = false;
 					phillyWindowEvent.visible = false;

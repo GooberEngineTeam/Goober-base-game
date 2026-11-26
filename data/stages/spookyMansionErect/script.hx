@@ -32,6 +32,7 @@ function onCreatePost()
 	bfLight = new Character(0, 0, boyfriend.curCharacter == "pico-dark" ? 'pico-playable' : 'bf', true);
 	bfLight.flipX = false;
 	bfLight.alpha = 0.0001;
+	bfLight.useRenderTexture = true;
 	bfLight.danceEveryNumBeats = boyfriend.danceEveryNumBeats;
 	boyfriendGroup.addChar(bfLight);
 	
@@ -41,6 +42,7 @@ function onCreatePost()
 	dadLight.danceEveryNumBeats = dad.danceEveryNumBeats;
 	dadLight.danceIdle = true;
 	dadLight.alpha = 0.0001;
+	dadLight.useRenderTexture = true;
 	dadGroup.addChar(dadLight);
 	
 	opponentStrums.singers = [dad, dadLight];
@@ -49,6 +51,7 @@ function onCreatePost()
 	gfLight.danceEveryNumBeats = gf.danceEveryNumBeats;
 	gfLight.danceIdle = true;
 	gfLight.alpha = 0.0001;
+	gfLight.useRenderTexture = true;
 	if (gf.curCharacter != "nene-dark") gfGroup.addChar(gfLight);
 
 	if (gf.curCharacter == "nene-dark")
@@ -68,12 +71,14 @@ function onCreatePost()
 		pupilLight.anim.addBySymbolIndices('lookin right', 'a bot eyes lookin', [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], 24, false);
 		pupilLight.anim.play('lookin left');
 		pupilLight.antialiasing = true;
+		pupilLight.useRenderTexture = true;
 		
 		abotSpeakerLight = new FlxAnimate(-175, -50);
 		abotSpeakerLight.frames = FlxAnimateFrames.fromAnimate((Paths.textureAtlas('characters/abot/abotSystem')));
 		abotSpeakerLight.anim.addBySymbol('sys', 'Abot System', 24, false);
 		abotSpeakerLight.anim.play('sys');
 		abotSpeakerLight.antialiasing = true;
+		abotSpeakerLight.useRenderTexture = true;
 		
 		abotVisLight = new ABotVis(audio.inst, false);
 		abotVisLight.x += 30;
