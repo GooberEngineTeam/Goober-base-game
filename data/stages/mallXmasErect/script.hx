@@ -149,7 +149,7 @@ function startCutscene()
 	camZooming = false;
 
 	focusCamera("position", santaDead.x + 1200, santaDead.y + 300, 2.8, 'expoOut', true);
-	camChangeZoom(0.73, 2, FlxEase.quadInOut);
+	camChangeZoom(0.73, 2, 'quadInOut');
 
 	santaSound = FunkinSound.load(Paths.sound('week5/santa_emotion'), 1);
 	santaSound.volume = 1;
@@ -161,7 +161,7 @@ function startCutscene()
 	new FlxTimer().start(2.8, function(tmr)
 	{
 		focusCamera("position", santaDead.x + 1050, santaDead.y + 300, 9, 'quartInOut', true);
-		camChangeZoom(0.79, 9, FlxEase.quadInOut);
+		camChangeZoom(0.79, 9, 'quadInOut');
 	});
 
 	new FlxTimer().start(11.375, function(tmr)

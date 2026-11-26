@@ -133,7 +133,7 @@ function onEvent(name, value1, value2)
                     dadbattleBlack.visible = true;
                     dadbattleLight.visible = true;
                     dadbattleSmokes.visible = true;
-                    camChangeZoom(defaultCamZoom + 0.12, 1.9, FlxEase.expoOut);
+                    camChangeZoom(defaultCamZoom + 0.12, 1.9, 'classic');
                 }
 
                 var who:Character = dad;
@@ -148,7 +148,7 @@ function onEvent(name, value1, value2)
             default:
                 dadbattleBlack.visible = false;
                 dadbattleLight.visible = false;
-                camChangeZoom(defaultCamZoom - 0.12, 1.9, FlxEase.expoOut);
+                camChangeZoom(defaultCamZoom - 0.12, 1.9, 'classic');
                 FlxTween.tween(dadbattleSmokes, {alpha: 0}, 1, {onComplete: function(twn:FlxTween)
                 {
                     dadbattleSmokes.visible = false;

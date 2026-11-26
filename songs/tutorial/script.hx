@@ -15,7 +15,7 @@ function onMoveCamera(turn)
 	
 	if (canTween)
 	{
-		camChangeZoom(turn == 'dad' ? 1.3 : 1, (Conductor.stepCrotchet / 1000) * 4, FlxEase.elasticInOut);
+		camChangeZoom(turn == 'dad' ? 1.3 : 1, (Conductor.stepCrotchet / 1000) * 4, 'elasticInOut');
 		canTween = false;
 	}
 }

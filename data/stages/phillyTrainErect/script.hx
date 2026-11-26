@@ -337,7 +337,7 @@ function onStartCountdown()
 						}
 					});
 
-					camChangeZoom(1.1, 1.9, FlxEase.sineInOut);
+					camChangeZoom(1.1, 1.9, 'sineInOut');
 				}
 				else
 				{
@@ -379,7 +379,7 @@ function onStartCountdown()
 					}
 				});
 
-				camChangeZoom(1.1, 1.9, FlxEase.sineInOut);
+				camChangeZoom(1.1, 1.9, 'sineInOut');
 			}
 			cutsceneMusic.stop();
 		});

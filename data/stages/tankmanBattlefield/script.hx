@@ -337,10 +337,10 @@ function tankIntro()
 			FlxG.sound.play(Paths.sound('week7/tankSong2'));
 			FunkinSound.playMusic(Paths.music('week7/DISTORTO'));
 
-			camChangeZoom(defaultCamZoom * 1.2, 4, FlxEase.quadInOut);
+			camChangeZoom(defaultCamZoom * 1.2, 4, 'quadInOut');
 			
 			FlxTimer.wait(4, () -> {
-				camChangeZoom(defaultCamZoom * 1.2, 0.5, FlxEase.quadInOut);
+				camChangeZoom(defaultCamZoom * 1.2, 0.5, 'quadInOut');
 				gf.playAnim('sad', true);
 				gf.animation.finishCallback = function(name:String) {
 					gf.playAnim('sad', true);
@@ -348,7 +348,7 @@ function tankIntro()
 			});
 
 			FlxTimer.wait(4.5, () -> {
-				camChangeZoom(defaultCamZoom / 1.2, 1, FlxEase.quadInOut);
+				camChangeZoom(defaultCamZoom / 1.2, 1, 'quadInOut');
 			});
 			
 			tankman.onAnimationFinish.add((spr) -> {
@@ -417,11 +417,11 @@ function tankIntro()
 			});
 			snapCamToPos(dad.x + 400, dad.y + 170);
 
-			camChangeZoom(0.9 * 1.2, 1, FlxEase.quadInOut);
+			camChangeZoom(0.9 * 1.2, 1, 'quadInOut');
 			
 			FlxTimer.wait(15.2, () -> {
 				FlxTween.tween(camFollowPoint, {x: 650, y: 300}, 1.9, {ease: FlxEase.expoOut});
-				camChangeZoom(0.9 * 1.2 * 1.2, 2.25, FlxEase.quadInOut);
+				camChangeZoom(0.9 * 1.2 * 1.2, 2.25, 'quadInOut');
 				gfDance.visible = false;
 				gfCutscene.alpha = 1;
 				gfCutscene.animation.play('dieBitch', true);
@@ -483,7 +483,7 @@ function tankIntro()
 				
 				camFollowPoint.set(boyfriend.x + 280, boyfriend.y + 200);
 				cameraSpeed = 12;
-				camChangeZoom(1.25, 0.25, FlxEase.elasticOut);
+				camChangeZoom(1.25, 0.25, 'elasticOut');
 			});
 			FlxTimer.wait(32.2, () -> {
 				snapCamToPos(630, 425);
@@ -505,7 +505,7 @@ function endScene()
 {
 	isCameraOnForcedPos = false;
 	camZooming = true;
-	camChangeZoom(stage.stageData.defaultZoom, 1, FlxEase.sineInOut);
+	camChangeZoom(stage.stageData.defaultZoom, 1, 'sineInOut');
 	dadGroup.alpha = 1;
 	FlxG.sound.music.stop();
 	camHUD.visible = true;

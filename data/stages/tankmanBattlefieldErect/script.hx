@@ -299,7 +299,7 @@ function onStartCountdown()
 		});
 
 		new FlxTimer(cutsceneTimerManager).start(6.308, () -> {
-			camChangeZoom(1.2, 0.5, FlxEase.quartInOut);
+			camChangeZoom(1.2, 0.5, 'quartInOut');
 			focusCamera("position", camFollowPoint.x, camFollowPoint.y - 120, 0.75, "quartInOut", true);
 		});
 
@@ -310,19 +310,19 @@ function onStartCountdown()
 		new FlxTimer(cutsceneTimerManager).start(11.159, () -> {
 			cameraSpeed = 0.3;
 					
-			camChangeZoom(0.74, 2.8, FlxEase.quartInOut);
+			camChangeZoom(0.74, 2.8, 'quartInOut');
 			focusCamera("position", camFollowPoint.x, camFollowPoint.y - 200, 2.8, "quartInOut", true);
 		});
 
 		new FlxTimer(cutsceneTimerManager).start(13.639, () -> {
 			cameraSpeed = 1;
 					
-			camChangeZoom(0.9125, 0.4 * 1.5, FlxEase.bounceOut);
+			camChangeZoom(0.9125, 0.4 * 1.5, 'bounceOut');
 			focusCamera("player", 0, 0, 4, "CLASSIC", true);
 		});
 
 		new FlxTimer(cutsceneTimerManager).start(24.119, () -> {
-			camChangeZoom(0.8, 0.7, FlxEase.quartInOut);
+			camChangeZoom(0.8, 0.7, 'quartInOut');
 			focusCamera("opponent", 0, 0, 0.7 * 1.5, "quartInOut", true);
 		});
 
@@ -342,7 +342,7 @@ function onStartCountdown()
 		});
 
 		new FlxTimer(cutsceneTimerManager).start(31.378, () -> {
-			camChangeZoom(0.7, 0.7, FlxEase.quadInOut);
+			camChangeZoom(0.7, 0.7, 'quadInOut');
 			focusCamera("opponent", 440, 0, 0.7 * 1.5, "quadInOut", true);
 		});
 
@@ -440,7 +440,7 @@ function startEndCutscene()
 	camHUD.visible = false;
 
 	focusCamera("position", tankmanPos[0] + 320, tankmanPos[1] - 70, 2.8, "expoOut", true);
-	camChangeZoom(0.65, 2, FlxEase.expoOut);
+	camChangeZoom(0.65, 2, 'expoOut');
 
 	new FlxTimer().start(0.1, _ ->
 	{

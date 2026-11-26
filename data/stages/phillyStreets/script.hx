@@ -430,7 +430,7 @@ function onStartCountdown()
 					FlxTimer.wait(0.5, () -> {
 						camGame.flash(FlxColor.BLACK, 3);
 						camGame.visible = true;
-						camChangeZoom(0.75, 5, FlxEase.quadInOut);
+						camChangeZoom(0.75, 5, 'quadInOut');
 					});
 					
 					FlxTimer.wait(2, () -> {
@@ -441,7 +441,7 @@ function onStartCountdown()
 						dad.playAnim('lightCan', true);
 						FlxG.sound.play(Paths.sound('weekend1/Darnell_Lighter'));
 						FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x + 150}, 0.5, {ease: FlxEase.quadInOut});
-						camChangeZoom(0.9, 0.625, FlxEase.quadInOut);
+						camChangeZoom(0.9, 0.625, 'quadInOut');
 					});
 					
 					FlxTimer.wait(6, () -> {
@@ -462,7 +462,7 @@ function onStartCountdown()
 						dad.playAnim('kneeCan', true);
 						FlxG.sound.play(Paths.sound('weekend1/Kick_Can_FORWARD'));
 						cutsceneCan.animation.play('forward');
-						camChangeZoom(0.7, 0.325, FlxEase.quadInOut);
+						camChangeZoom(0.7, 0.325, 'quadInOut');
 					});
 					
 					FlxTimer.wait(7.1, () -> {
@@ -490,7 +490,7 @@ function onStartCountdown()
 					});
 					
 					FlxTimer.wait(10, () -> {
-						camChangeZoom(0.77, 2, FlxEase.sineInOut);
+						camChangeZoom(0.77, 2, 'sineInOut');
 						FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x, y: getCharacterCameraPos(dad).y}, 2,
 							{
 								ease: FlxEase.sineInOut,
