@@ -7,6 +7,20 @@ var eventsArray = [];
 
 var canUseEvents:Bool = true;
 
+function onCreatePost()
+{
+    var jsonToUse = Paths.json(PlayState.SONG.song.replace(' ', '-') + '/v-sliceEvents', null, true);
+    
+    if (FunkinAssets.exists(jsonToUse))
+    {
+        var parsedJson = FunkinAssets.parseJson(FunkinAssets.getContent(jsonToUse));
+        eventsArray = parsedJson.events;
+        if (eventsArray == null) {
+            canUseEvents = false;
+        }
+    }
+}
+
 function triggerVSliceEvent(name, values, strumTime):Void
 {
     switch(name)
@@ -41,7 +55,7 @@ function triggerVSliceEvent(name, values, strumTime):Void
             triggerEventNote("Zoom Camera", '${values.mode},A', '${values.zoom ?? 1},${values.duration ?? 4},$easeType');
         case "SetCameraBop":
             triggerEventNote("Set Camera Bop", '${values.rate}', '${values.intensity}');
-            beatOffset =  values.offset;
+            if (values.offset != null) beatOffset = values.offset ?? 0;
         case "PlayAnimation":
             switch (values.target)
             {
@@ -55,20 +69,6 @@ function triggerVSliceEvent(name, values, strumTime):Void
                     gf.playAnim(values.anim, values.force);
                     gf.specialAnim = true;
             }
-    }
-}
-
-function onCreatePost()
-{
-    var jsonToUse = Paths.json(PlayState.SONG.song.replace(' ', '-') + '/v-sliceEvents', null, true);
-    
-    if (FunkinAssets.exists(jsonToUse))
-    {
-        var parsedJson = FunkinAssets.parseJson(FunkinAssets.getContent(jsonToUse));
-        eventsArray = parsedJson.events;
-        if (eventsArray == null) {
-            canUseEvents = false;
-        }
     }
 }
 
@@ -89,6 +89,12 @@ function onUpdatePost(elapsed)
         }
     }
 }
+
+function onSongStart()
+{
+    if (!camZooming) camZooming = true;
+}
+
 function onGameOver()
 {
     eventsArray = [];
