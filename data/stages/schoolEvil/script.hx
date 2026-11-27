@@ -2,28 +2,37 @@ var bgGhouls:BGSprite;
 
 function onLoad()
 {
-	var posX = 400;
-	var posY = 300;
+	var solid:FlxSprite = new FlxSprite(-500, -1000).makeGraphic(2400, 2000, FlxColor.BLACK);
+	solid.scrollFactor.set();
+	add(solid);
+
+	var backTrees:BGSprite = new BGSprite('backgrounds/weeb/evil/evil-school-back-trees', -842, -80, 0.5, 0.5);
+	backTrees.antialiasing = false;
+	backTrees.setScale(6, 6, true);
+	add(backTrees);
+
+	var school:BGSprite = new BGSprite('backgrounds/weeb/evil/evil-school', -816, -38, 0.75, 0.75);
+	school.antialiasing = false;
+	school.setScale(6, 6, true);
+	add(school);
+
+	var street:BGSprite = new BGSprite('backgrounds/weeb/evil/evil-school-street', -662, 6, 1, 1);
+	street.antialiasing = false;
+	street.setScale(6, 6, true);
+	add(street);
+
+	var trees:BGSprite = new BGSprite('backgrounds/weeb/evil/evil-school-trees', -662, 6, 1, 1);
+	trees.antialiasing = false;
+	trees.setScale(6, 6, true);
+	add(trees);
+	
 	if (!ClientPrefs.lowQuality)
 	{
-		var bg:BGSprite = new BGSprite('backgrounds/weeb/animatedEvilSchool', posX, posY, 0.8, 0.9, ['background 2'], true);
-		bg.scale.set(6, 6);
-		bg.antialiasing = false;
-		add(bg);
-		
-		bgGhouls = new BGSprite('backgrounds/weeb/bgGhouls', -100, posY, 0.9, 0.9, ['BG freaks glitch instance'], false);
-		bgGhouls.setGraphicSize(Std.int(bgGhouls.width * 6));
-		bgGhouls.updateHitbox();
+		bgGhouls = new BGSprite('backgrounds/weeb/evil/bgGhouls', -650, 260, 1, 1, ['BG freaks glitch instance'], true);
+		bgGhouls.setScale(6, 6, true);
 		bgGhouls.visible = false;
 		bgGhouls.antialiasing = false;
 		add(bgGhouls);
-	}
-	else
-	{
-		var bg:BGSprite = new BGSprite('backgrounds/weeb/animatedEvilSchool_low', posX, posY, 0.8, 0.9);
-		bg.scale.set(6, 6);
-		bg.antialiasing = false;
-		add(bg);
 	}
 }
 
@@ -34,10 +43,7 @@ function onCreatePost()
 
 function onUpdate(elapsed)
 {
-	if (!ClientPrefs.lowQuality && bgGhouls.animation.curAnim.finished)
-	{
-		bgGhouls.visible = false;
-	}
+	if (!ClientPrefs.lowQuality && bgGhouls.animation.curAnim.finished) bgGhouls.visible = false;
 }
 
 function onEvent(eventName, value1, value2)

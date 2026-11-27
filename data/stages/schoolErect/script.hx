@@ -4,56 +4,48 @@ using StringTools;
 
 function onLoad()
 {
-	var bgSky:BGSprite = new BGSprite('backgrounds/weeb/erect/weebSky', -626, -78, 0.2, 0.2);
-	bgSky.zIndex = 10;
-	bgSky.setScale(6, 6, true);
-	bgSky.antialiasing = false;
-	add(bgSky);
+	var sky:BGSprite = new BGSprite('backgrounds/weeb/erect/weeb-sky', -626, -78, 0.2, 0.2);
+	sky.antialiasing = false;
+	sky.setScale(6, 6, true);
+	add(sky);
 
-	var bgSchool:BGSprite = new BGSprite('backgrounds/weeb/erect/weebSchool', -816, -38, 0.75, 0.75);
-	bgSchool.zIndex = 20;
-	bgSchool.setScale(6, 6, true);
-	bgSchool.antialiasing = false;
-	add(bgSchool);
-
-	var backTrees:BGSprite = new BGSprite('backgrounds/weeb/erect/weebBackTrees', -842, -80, 0.5, 0.5);
-	backTrees.zIndex = 15;
-	backTrees.setScale(6, 6, true);
+	var backTrees:BGSprite = new BGSprite('backgrounds/weeb/erect/weeb-trees-back', -842, -80, 0.5, 0.5);
 	backTrees.antialiasing = false;
+	backTrees.setScale(6, 6, true);
 	add(backTrees);
 
-	var bgStreet:BGSprite = new BGSprite('backgrounds/weeb/erect/weebStreet', -662, 6, 1, 1);
-	bgStreet.zIndex = 30;
-	bgStreet.setScale(6, 6, true);
-	bgStreet.antialiasing = false;
-	add(bgStreet);
+	var school:BGSprite = new BGSprite('backgrounds/weeb/erect/weeb-school', -816, -38, 0.75, 0.75);
+	school.antialiasing = false;
+	school.setScale(6, 6, true);
+	add(school);
+
+	var street:BGSprite = new BGSprite('backgrounds/weeb/erect/weeb-street', -662, 6, 1, 1);
+	street.antialiasing = false;
+	street.setScale(6, 6, true);
+	add(street);
 
 	if (!ClientPrefs.lowQuality)
 	{
-		var fgTrees:BGSprite = new BGSprite('backgrounds/weeb/erect/weebTreesBack', -500, 6, 1, 1);
-		fgTrees.zIndex = 40;
-		fgTrees.setScale(6, 6, true);
-		fgTrees.antialiasing = false;
-		add(fgTrees);
+		var treesFG:BGSprite = new BGSprite('backgrounds/weeb/erect/weeb-trees-back', -500, 6, 1, 1);
+		treesFG.antialiasing = false;
+		treesFG.setScale(6, 6, true);
+		add(treesFG);
 	}
 
-	var bgTrees:FlxSprite = new FlxSprite(-806, -1050);
-	bgTrees.frames = Paths.getPackerAtlas('backgrounds/weeb/erect/weebTrees');
-	bgTrees.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
-	bgTrees.animation.play('treeLoop');
-	bgTrees.scrollFactor.set(0.85, 0.85);
-	bgTrees.zIndex = 60;
-	bgTrees.setScale(6, 6, true);
-	bgTrees.antialiasing = false;
-	add(bgTrees);
+	var treesBG:FlxSprite = new FlxSprite(-806, -1050);
+	treesBG.frames = Paths.getPackerAtlas('backgrounds/weeb/erect/weeb-trees');
+	treesBG.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
+	treesBG.animation.play('treeLoop');
+	treesBG.setScale(6, 6, true);
+	treesBG.antialiasing = false;
+	add(treesBG);
 
 	if (!ClientPrefs.lowQuality)
 	{
-		var treeLeaves:BGSprite = new BGSprite('backgrounds/weeb/erect/petals', -20, -40, 0.85, 0.85, ['PETALS ALL'], true);
-		treeLeaves.zIndex = 70;
-		treeLeaves.setScale(6, 6, true);
-		treeLeaves.antialiasing = false;
-		add(treeLeaves);
+		var petals:BGSprite = new BGSprite('backgrounds/weeb/erect/petals', -20, -40, 0.85, 0.85, ['PETALS ALL'], true);
+		petals.setScale(6, 6, true);
+		petals.antialiasing = false;
+		add(petals);
 	}
 }
 

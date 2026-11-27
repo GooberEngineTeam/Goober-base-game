@@ -5,66 +5,52 @@ function onLoad()
 	GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
 	GameOverSubstate.characterName = 'bf-pixel-dead';
 	
-	var bgSky:BGSprite = new BGSprite('backgrounds/weeb/weebSky', 0, 0, 0.1, 0.1);
-	add(bgSky);
-	bgSky.antialiasing = false;
-	
-	var repositionShit = -200;
-	
-	var bgSchool:BGSprite = new BGSprite('backgrounds/weeb/weebSchool', repositionShit, 0, 0.6, 0.90);
-	add(bgSchool);
-	bgSchool.antialiasing = false;
-	
-	var bgStreet:BGSprite = new BGSprite('backgrounds/weeb/weebStreet', repositionShit, 0, 0.95, 0.95);
-	add(bgStreet);
-	bgStreet.antialiasing = false;
-	
-	var widShit = Std.int(bgSky.width * 6);
+	var sky:BGSprite = new BGSprite('backgrounds/weeb/weeb-sky', -626, -78, 0.2, 0.2);
+	sky.antialiasing = false;
+	sky.setScale(6, 6, true);
+	add(sky);
+
+	var backTrees:BGSprite = new BGSprite('backgrounds/weeb/weeb-trees-back', -842, -80, 0.5, 0.5);
+	backTrees.antialiasing = false;
+	backTrees.setScale(6, 6, true);
+	add(backTrees);
+
+	var school:BGSprite = new BGSprite('backgrounds/weeb/weeb-school', -816, -38, 0.75, 0.75);
+	school.antialiasing = false;
+	school.setScale(6, 6, true);
+	add(school);
+
+	var street:BGSprite = new BGSprite('backgrounds/weeb/weeb-street', -662, 6, 1, 1);
+	street.antialiasing = false;
+	street.setScale(6, 6, true);
+	add(street);
+
 	if (!ClientPrefs.lowQuality)
 	{
-		var fgTrees:BGSprite = new BGSprite('backgrounds/weeb/weebTreesBack', repositionShit + 170, 130, 0.9, 0.9);
-		fgTrees.setGraphicSize(Std.int(widShit * 0.8));
-		fgTrees.updateHitbox();
-		add(fgTrees);
-		fgTrees.antialiasing = false;
+		var treesFG:BGSprite = new BGSprite('backgrounds/weeb/weeb-trees-back', -500, 6, 1, 1);
+		treesFG.antialiasing = false;
+		treesFG.setScale(6, 6, true);
+		add(treesFG);
 	}
-	
-	var bgTrees:FlxSprite = new FlxSprite(repositionShit - 380, -800);
-	bgTrees.frames = Paths.getPackerAtlas('backgrounds/weeb/weebTrees');
-	bgTrees.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
-	bgTrees.animation.play('treeLoop');
-	bgTrees.scrollFactor.set(0.85, 0.85);
-	add(bgTrees);
-	bgTrees.antialiasing = false;
-	
+
+	var treesBG:FlxSprite = new FlxSprite(-806, -1050);
+	treesBG.frames = Paths.getPackerAtlas('backgrounds/weeb/weeb-trees');
+	treesBG.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
+	treesBG.animation.play('treeLoop');
+	treesBG.setScale(6, 6, true);
+	treesBG.antialiasing = false;
+	add(treesBG);
+
 	if (!ClientPrefs.lowQuality)
 	{
-		var treeLeaves:BGSprite = new BGSprite('backgrounds/weeb/petals', repositionShit, -40, 0.85, 0.85, ['PETALS ALL'], true);
-		treeLeaves.setGraphicSize(widShit);
-		treeLeaves.updateHitbox();
-		add(treeLeaves);
-		treeLeaves.antialiasing = false;
-	}
-	
-	bgSky.setGraphicSize(widShit);
-	bgSchool.setGraphicSize(widShit);
-	bgStreet.setGraphicSize(widShit);
-	bgTrees.setGraphicSize(Std.int(widShit * 1.4));
-	
-	bgSky.updateHitbox();
-	bgSchool.updateHitbox();
-	bgStreet.updateHitbox();
-	bgTrees.updateHitbox();
-	
-	if (!ClientPrefs.lowQuality)
-	{
-		bgGirls = new BackgroundGirls(-100, 190);
-		bgGirls.scrollFactor.set(0.9, 0.9);
-		bgGirls.antialiasing = false;
+		var petals:BGSprite = new BGSprite('backgrounds/weeb/petals', -20, -40, 0.85, 0.85, ['PETALS ALL'], true);
+		petals.setScale(6, 6, true);
+		petals.antialiasing = false;
+		add(petals);
 		
-		// bgGirls.setGraphicSize(Std.int(bgGirls.width * daPixelZoom));
-		bgGirls.scale.set(6, 6);
-		bgGirls.updateHitbox();
+		bgGirls = new BackgroundGirls(-646, 222);
+		bgGirls.antialiasing = false;
+		bgGirls.setScale(6, 6, true);
 		add(bgGirls);
 	}
 }
@@ -79,21 +65,9 @@ function onEvent(eventName, value1, value2)
 	if (eventName == 'BG Freaks Expression') bgGirls.swapDanceType();
 }
 
-function onCountdownTick()
-{
-	if (!ClientPrefs.lowQuality)
-	{
-		bgGirls.dance();
-	}
-}
+function onCountdownTick() if (!ClientPrefs.lowQuality) bgGirls.dance();
 
-function onBeatHit()
-{
-	if (!ClientPrefs.lowQuality)
-	{
-		bgGirls.dance();
-	}
-}
+function onBeatHit() if (!ClientPrefs.lowQuality) bgGirls.dance();
 
 var a = false;
 
