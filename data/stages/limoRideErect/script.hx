@@ -1,9 +1,8 @@
 import funkin.game.shaders.AdjustColorShader;
 
-import funkin.objects.stageobjects.BackgroundDancer;
 import funkin.objects.BGSprite;
 
-var grpLimoDancers:Array<BackgroundDancer> = [];
+var grpLimoDancers:Array<FlxSprite> = [];
 var grpLimoParticles:Array<BGSprite> = [];
 var limo:BGSprite;
 var shootingStar:BGSprite;
@@ -15,6 +14,7 @@ var bgLimo:BGSprite;
 var fastCar:BGSprite;
 var limoSpeed:Float = 0;
 var limoKillingState:Int = 0;
+var danceDir:Bool = false;
 
 var colorShader:AdjustColorShader;
 var mist1:FlxBackdrop;
@@ -67,7 +67,11 @@ function onLoad()
 
 		for (i in 0...5)
 		{
-			var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 170, bgLimo.y - 400);
+			var dancer:FlxSprite = new FlxSprite((370 * i) + 170, bgLimo.y - 400);
+			dancer.frames = Paths.getSparrowAtlas("backgrounds/limo/limo-dancer");
+			dancer.animation.addByIndices('danceLeft', 'bg dancer sketch PINK', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 12, false);
+			dancer.animation.addByIndices('danceRight', 'bg dancer sketch PINK', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 12, false);
+			dancer.animation.play('danceLeft');
 			dancer.scrollFactor.set(0.4, 0.4);
             dancer.shader = colorShader.shader;
 			add(dancer);
@@ -349,7 +353,7 @@ function onUpdate(elapsed)
 
 		if (limoKillingState > 2)
         {
-			var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
+			var dancers:Array<FlxSprite> = grpLimoDancers.members;
 			for (i in 0...dancers.length) {
 				dancers[i].x = (370 * i) + bgLimo.x + 280;
 			}
@@ -357,10 +361,16 @@ function onUpdate(elapsed)
 	}
 }
 
-function onCountdownTick() {
-	if (!ClientPrefs.lowQuality) {
-		for (dancer in grpLimoDancers) {
-			dancer.dance();
+function onCountdownTick()
+{
+	if (!ClientPrefs.lowQuality)
+	{
+		danceDir = !danceDir;
+		
+		for (dancer in grpLimoDancers)
+		{
+			if (danceDir) dancer.animation.play('danceRight', true);
+			else dancer.animation.play('danceLeft', true);
 		}
 	}
 }
@@ -377,9 +387,14 @@ function doShootingStar(beat:Int):Void
 }
 
 function onBeatHit() {
-	if (!ClientPrefs.lowQuality) {
-		for (dancer in grpLimoDancers) {
-			dancer.dance();
+	if (!ClientPrefs.lowQuality)
+	{
+		danceDir = !danceDir;
+		
+		for (dancer in grpLimoDancers)
+		{
+			if (danceDir) dancer.animation.play('danceRight', true);
+			else dancer.animation.play('danceLeft', true);
 		}
 	}
 	if (FlxG.random.bool(10) && fastCarCanDrive)

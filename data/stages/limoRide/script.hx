@@ -1,9 +1,8 @@
-import funkin.objects.stageobjects.BackgroundDancer;
 import funkin.objects.BGSprite;
 
 import funkin.game.shaders.OverlayShader;
 
-var grpLimoDancers:Array<BackgroundDancer> = [];
+var grpLimoDancers:Array<FlxSprite> = [];
 var grpLimoParticles:Array<BGSprite> = [];
 var limo:BGSprite;
 var limoMetalPole:BGSprite;
@@ -14,30 +13,28 @@ var bgLimo:BGSprite;
 var fastCar:BGSprite;
 var limoSpeed:Float = 0;
 var limoKillingState:Int = 0;
+var danceDir:Bool = false;
 
 function onLoad()
 {
-	var skyBG:BGSprite = new BGSprite('backgrounds/limo/limoSunset', -120, -50, 0.1, 0.1);
-	add(skyBG);
-
-	skyBG.zIndex = 0;
-
 	// Apply sky shader.
     var skyOverlay:OverlayShader = new OverlayShader();
-    var sunOverlay:FlxSprite = new FlxSprite().loadGraphic(Paths.image('backgrounds/limo/limoOverlay'));
-    sunOverlay.setGraphicSize(Std.int(sunOverlay.width * 2));
-    sunOverlay.updateHitbox();
+    var sunOverlay:FlxSprite = new FlxSprite().loadGraphic(Paths.image('backgrounds/limo/limo-overlay'));
+    sunOverlay.setScale(2, 2, true);
     skyOverlay.setBitmapOverlay(sunOverlay.pixels);
     
-	if (skyBG == null) trace(' WARNING '.bg_yellow().bold() + ' Could not retrieve skyBG');
-    else skyBG.shader = skyOverlay;
+	var skyBG:BGSprite = new BGSprite('backgrounds/limo/limo-sunset', -120, -50, 0.1, 0.1);
+	skyBG.zIndex = 0;
+	skyBG.shader = skyOverlay;
+	add(skyBG);
 
-	if (!ClientPrefs.lowQuality) {
+	if (!ClientPrefs.lowQuality)
+	{
 		limoMetalPole = new BGSprite('backgrounds/limo/gore/metalPole', -500, 220, 0.4, 0.4);
 		add(limoMetalPole);
 		limoMetalPole.zIndex = 1;
 
-		bgLimo = new BGSprite('backgrounds/limo/bgLimo', -150, 480, 0.4, 0.4, ['background limo pink'], true);
+		bgLimo = new BGSprite('backgrounds/limo/bg-limo', -150, 480, 0.4, 0.4, ['background limo pink'], true);
 		add(bgLimo);
 		bgLimo.zIndex = 2;
 
@@ -53,7 +50,11 @@ function onLoad()
 		add(grpLimoDancers);
 
 		for (i in 0...5) {
-			var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 170, bgLimo.y - 400);
+			var dancer:FlxSprite = new FlxSprite((370 * i) + 170, bgLimo.y - 400);
+			dancer.frames = Paths.getSparrowAtlas("backgrounds/limo/limo-dancer");
+			dancer.animation.addByIndices('danceLeft', 'bg dancer sketch PINK', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
+			dancer.animation.addByIndices('danceRight', 'bg dancer sketch PINK', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+			dancer.animation.play('danceLeft');
 			dancer.scrollFactor.set(0.4, 0.4);
 			dancer.zIndex = 5;
 			grpLimoDancers.add(dancer);
@@ -71,10 +72,10 @@ function onLoad()
 		grpLimoParticles.push(particle);
 	}
 
-	limo = new BGSprite('backgrounds/limo/limoDrive', -120, 550, 1, 1, ['Limo stage'], true);
+	limo = new BGSprite('backgrounds/limo/limo-drive', -120, 550, 1, 1, ['Limo stage'], true);
 	limo.zIndex = 8;
 
-	fastCar = new BGSprite('backgrounds/limo/fastCarLol', -300, 160);
+	fastCar = new BGSprite('backgrounds/limo/fast-car', -300, 160);
 	fastCar.active = true;
 	fastCar.zIndex = 6;
 
@@ -244,7 +245,7 @@ function onUpdate(elapsed)
 
 		if (limoKillingState > 2)
 		{
-			var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
+			var dancers:Array<FlxSprite> = grpLimoDancers.members;
 			for (i in 0...dancers.length) dancers[i].x = (370 * i) + bgLimo.x + 280;
 		}
 	}
@@ -254,14 +255,27 @@ function onCountdownTick()
 {
 	if (!ClientPrefs.lowQuality)
 	{
-		for (dancer in grpLimoDancers) dancer.dance();
+		danceDir = !danceDir;
+		
+		for (dancer in grpLimoDancers)
+		{
+			if (danceDir) dancer.animation.play('danceRight', true);
+			else dancer.animation.play('danceLeft', true);
+		}
 	}
 }
 
-function onBeatHit() {
+function onBeatHit()
+{
 	if (!ClientPrefs.lowQuality)
 	{
-		for (dancer in grpLimoDancers) dancer.dance();
+		danceDir = !danceDir;
+		
+		for (dancer in grpLimoDancers)
+		{
+			if (danceDir) dancer.animation.play('danceRight', true);
+			else dancer.animation.play('danceLeft', true);
+		}
 	}
 	if (FlxG.random.bool(10) && fastCarCanDrive) fastCarDrive();
 }
