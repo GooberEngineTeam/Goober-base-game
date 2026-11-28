@@ -7,6 +7,7 @@ function onCreatePost() {
 			j.camDisplacement = 10;
 	}
 
+	cameraSpeed = 4;
 	FlxG.camera.pixelPerfectRender = true;
 
 	countdownPrefix = 'pixelUI/';
